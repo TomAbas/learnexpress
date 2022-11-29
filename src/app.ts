@@ -21,6 +21,26 @@ app.get("/api/products/1", (req: Request, res: Response) => {
 
   res.json(newProducts);
 });
+
+app.get("/api/v1/query", (req: Request, res: Response) => {
+  console.log(req.query);
+  const { search, limit } = req.query;
+  let sortedProducts = [...products];
+
+  if (typeof search === "string") {
+    sortedProducts = sortedProducts.filter((a) => {
+      return a.name.startsWith(search);
+    });
+  }
+  if (typeof limit === "string") {
+    sortedProducts = sortedProducts.slice(0, Number(limit));
+  }
+  // if (sortedProducts.length === 0) {
+  //    res.status(200).json({ success: true, data: [] });
+  // }
+  res.status(200).json(sortedProducts);
+  return;
+});
 app.listen(6868, () => {
   console.log("voo");
 });
