@@ -1,28 +1,14 @@
-import express, { NextFunction, Request, Response } from "express";
-import { people, products } from "./data";
-import morgan from "morgan";
-import { logger } from "./middleware/logger";
-import { authorize } from "./middleware/authorize";
+import express, { Request, Response } from "express";
+import { people } from "./data";
 const app = express();
 
-//req => middleware => res
-app.use(morgan("tiny"));
-// app.use(express.static("src/public"));
-// app.use([authorize, logger]);
+let peopleData = people;
 
-// app.use("/about", authorize);
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("<h1>home</h1>");
-});
-app.get("/about", (req: Request, res: Response) => {
-  console.log(req.name);
-  res.send("about");
+app.use(express.static("src/methods-public"));
+app.get("/api/people", (req: Request, res: Response) => {
+  res.status(200).json({ success: true, data: peopleData });
 });
 
-app.get("/login", (req: Request, res: Response) => {
-  res.send("login");
-});
 app.listen(6868, () => {
   console.log("voo");
 });
