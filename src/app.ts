@@ -1,13 +1,18 @@
 import express, { Request, Response } from "express";
-import { people } from "./data";
+import { stringify } from "querystring";
+import peopleRoute from "./routes/people";
+import login from "./routes/auth";
 const app = express();
 
-let peopleData = people;
-
 app.use(express.static("src/methods-public"));
-app.get("/api/people", (req: Request, res: Response) => {
-  res.status(200).json({ success: true, data: peopleData });
-});
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
+
+app.use("/api/people", peopleRoute);
+
+app.use("/login", login);
 
 app.listen(6868, () => {
   console.log("voo");
