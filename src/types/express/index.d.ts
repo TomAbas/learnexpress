@@ -1,4 +1,4 @@
-import { name } from "../../constants/common.constants";
+import { name, error } from "../../constants/common.constants";
 i;
 declare global {
   namespace Express {
@@ -7,3 +7,4 @@ declare global {
     }
   }
 }
+
