@@ -1,3 +1,7 @@
+import express, { Request, Response } from "express";
+import { stringify } from "querystring";
+import peopleRoute from "./routes/people";
+import login from "./routes/auth";
 import express from "express";
 const app = express();
 const port = 3000;
@@ -27,5 +31,14 @@ const start = async () => {
     console.log(error);
   }
 };
+app.use(express.static("src/methods-public"));
+
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
+
+app.use("/api/people", peopleRoute);
+
+app.use("/login", login);
 
 start();
