@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const productShema = new mongoose.Schema({
-  feature: {
+  featured: {
     type: Boolean,
     default: false,
   },

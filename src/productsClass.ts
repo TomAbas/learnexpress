@@ -1,29 +1,29 @@
-class Product {
-  id: string;
+export class Product {
+  featured: boolean;
+  rating: number;
+  createAt: Date;
+  price: number;
   name: string;
-  image: string;
-  price: string;
-  desc: string;
+  company: string;
   constructor(
-    id: string,
+    featured: boolean,
+    rating: number,
+    createAt: Date,
+    price: number,
     name: string,
-    image: string,
-    price: string,
-    desc: string
+    company: string
   ) {
-    this.id = id;
-    this.name = name;
-    this.image = image;
+    this.featured = featured;
+    this.rating = rating;
+    this.createAt = createAt;
     this.price = price;
-    this.desc = desc;
+    this.name = name;
+    this.company = company;
   }
   printPrice() {
     console.log(this.price);
   }
 }
-
-const chai = new Product("1", "chai", "qew", "$12", "chai ne");
-chai.printPrice();
 
 class cat {
   name1: string;
