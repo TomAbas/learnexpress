@@ -1,13 +1,11 @@
-import peopleRoute from "./routes/people";
-import login from "./routes/auth";
 import express from "express";
 const app = express();
-const port = 3000;
+const port = 6868;
 import tasks from "./routes/tasks";
 import connectDB from "./db/connect";
 import * as dotenv from "dotenv";
 import { notFound } from "./middleware/not-found";
-import errorHandler from "./middleware/error-handler";
+import { errorHandler } from "./middleware/error-handler";
 dotenv.config();
 //middleware
 
@@ -31,12 +29,7 @@ const start = async () => {
 };
 app.use(express.static("src/methods-public"));
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); //run validator ??
 
-app.use(express.json());
-
-app.use("/api/people", peopleRoute);
-
-app.use("/login", login);
 
 start();

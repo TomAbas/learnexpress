@@ -28,11 +28,13 @@ chai.printPrice();
 class cat {
   name1: string;
   sound: string;
-  me1o: string;
-  constructor(name1: string, sound: string, meo: string) {
+  me1o: string | undefined;
+  coneo: string;
+  constructor(name1: string, sound: string, meo?: string) {
     this.name1 = name1;
     this.sound = sound;
-    this.me1o = " conmeokeumeomeo ";
+    this.me1o = meo;
+    this.coneo = "213";
   }
   makeSound() {
     console.log(this.sound + " and " + this.name1 + " test " + this.me1o);
@@ -44,24 +46,24 @@ const conmeo = new cat(" conmeo ", " meomeo ", " qwe ");
 class tiger extends cat {
   test: string;
   test1: string;
-  test2: string;
   // name1: string;
   // sound: string;
   constructor(
     test: string,
     test1: string,
-    name1: string,
-    sound: string,
-    meo9: string
+    naqweqwme1: string,
+    soasdund: string,
+    meo123: string,
+    meo: string
   ) {
-    super(name1, sound, meo9);
-    this.test = test;
+    super(naqweqwme1, soasdund);
+    this.test = soasdund;
     this.test1 = test1;
-    this.test2 = meo9;
+    this.sound = soasdund;
+    this.me1o = meo123;
   }
   makeVoice() {
     super.makeSound();
-    console.log(this.test2);
   }
 }
 
