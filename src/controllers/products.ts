@@ -25,3 +25,4 @@ export const getOneProducts = async (req: Request, res: Response) => {
 export const findProducts = async (req: Request, res: Response) => {
   res.send("123");
 };
+
