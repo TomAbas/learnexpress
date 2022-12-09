@@ -14,22 +14,27 @@ class productsController implements Controller {
   }
 
   private initialiseRoutes() {
-    console.log("1234");
     this.router.route(`${this.path}`).get(this.getAllProducts);
   }
 
   private getAllProducts = async (req: Request, res: Response) => {
-    console.log("123");
-    const { featured, company } = req.query;
+    const { featured, company, name, sort } = req.query;
+
     const queryObj: queryObj = {};
     if (featured) {
       queryObj.featured = featured === "true" ? true : false;
     }
     if (company) {
-      queryObj.company = company;
+      queryObj.company = String(company);
     }
-    console.log(queryObj);
-    let allProducts = await this.ProductService.getAllProducts(queryObj);
+    if (name) {
+      queryObj.name = { $regex: name, $options: "i" };
+    }
+    let allProducts = await this.ProductService.getAllProducts(
+      queryObj,
+      String(sort)
+    );
+
     res.status(200).json({ allProducts, length: allProducts.length });
   };
 }

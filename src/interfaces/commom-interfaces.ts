@@ -3,6 +3,6 @@ export interface queryObj {
   rating?: number;
   createAt?: Date;
   price?: number;
-  name?: string;
-  company?:  "ikea" | "liddy" | "caressa" | "marcos" | any;
+  name?: Object;
+  company?: String;
 }
