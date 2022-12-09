@@ -18,8 +18,9 @@ class productsController implements Controller {
   }
 
   private getAllProducts = async (req: Request, res: Response) => {
-    const { featured, company, name, sort } = req.query;
-
+    const { featured, company, name, sort, select, price } = req.query;
+    const limit = Number(req.query.limit) || 10;
+    const page = Number(req.query.page) || 1;
     const queryObj: queryObj = {};
     if (featured) {
       queryObj.featured = featured === "true" ? true : false;
@@ -30,9 +31,23 @@ class productsController implements Controller {
     if (name) {
       queryObj.name = { $regex: name, $options: "i" };
     }
+    if (price) {
+      let regex = /[<>]=?|=/g;
+      let compare: any = String(price).match(regex);
+      let value = String(price).split(compare[0])[1];
+
+      //   if (compare === ">") {
+      //     queryObj.price = { $gte: value };
+      //   } else {
+      //     queryObj.price = { $lte: value };
+      //   }
+    }
     let allProducts = await this.ProductService.getAllProducts(
       queryObj,
-      String(sort)
+      limit,
+      page,
+      String(sort),
+      String(select)
     );
 
     res.status(200).json({ allProducts, length: allProducts.length });

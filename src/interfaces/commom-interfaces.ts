@@ -2,7 +2,7 @@ export interface queryObj {
   featured?: boolean;
   rating?: number;
   createAt?: Date;
-  price?: number;
+  price?: Object;
   name?: Object;
   company?: String;
 }

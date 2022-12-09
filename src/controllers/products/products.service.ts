@@ -6,21 +6,33 @@ class ProductService {
   private products = productsModel;
 
   //   get all post
-  public getAllProducts = async (queryObj: queryObj, sort?: string) => {
+  public getAllProducts = async (
+    queryObj: queryObj,
+    limit: number,
+    page: number,
+    sort?: string,
+    select?: string
+  ) => {
     let result = this.products.find(queryObj);
+    //sort
     if (sort !== "undefined") {
-      result = result.limit(10).sort(sort);
+      let arg = sort?.split(",").join(" ");
+      result = result.sort(arg);
+    } else {
+      result = result.sort("createAt");
     }
+    //seclect
+    if (select !== "undefined") {
+      let arg = select?.split(",").join(" ");
+      result = result.select(arg);
+    }
+    //limit + skip
+    let skip = (page - 1) * limit;
+    result = result.skip(skip).limit(limit);
+
     const allProducts = await result;
+
     return allProducts;
-  };
-  // sort
-  public sortProductsDelimit = async (queryObj: queryObj, sort: string) => {
-    const sortProducts = await this.products
-      .find(queryObj)
-      .limit(10)
-      .sort(sort);
-    return sortProducts;
   };
 }
 
