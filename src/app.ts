@@ -43,7 +43,7 @@ class App {
     this.express = express();
     this.port = port;
 
-    this.connectDataBase();
+    // this.connectDataBase();
     this.useMiddleware();
     this.useController(controllers);
     this.notFoundHandling();
@@ -51,6 +51,7 @@ class App {
   }
 
   private useMiddleware(): void {
+    this.express.use(express.static("src/public"));
     this.express.use(express.json());
   }
   private ErrorHandling(): void {
@@ -66,7 +67,7 @@ class App {
   }
   private async connectDataBase() {
     const url: any = process.env.MONGO_URL;
-    await mongoose.connect(url).then();
+    await mongoose.connect(url)
   }
 
   public listen(): void {

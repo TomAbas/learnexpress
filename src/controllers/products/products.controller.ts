@@ -18,10 +18,11 @@ class productsController implements Controller {
   }
 
   private getAllProducts = async (req: Request, res: Response) => {
-    const { featured, company, name, sort, select, price } = req.query;
+    const { featured, company, name, sort, select, numbericFilters } =
+      req.query;
     const limit = Number(req.query.limit) || 10;
     const page = Number(req.query.page) || 1;
-    const queryObj: queryObj = {};
+    const queryObj: any = {};
     if (featured) {
       queryObj.featured = featured === "true" ? true : false;
     }
@@ -31,16 +32,35 @@ class productsController implements Controller {
     if (name) {
       queryObj.name = { $regex: name, $options: "i" };
     }
-    if (price) {
+    if (numbericFilters) {
+      const operatorMap: any = {
+        "=": "$eq",
+        ">": "$gt",
+        "<": "$lt",
+        ">=": "$gte",
+        "<=": "$lte",
+      };
       let regex = /[<>]=?|=/g;
-      let compare: any = String(price).match(regex);
-      let value = String(price).split(compare[0])[1];
-
-      //   if (compare === ">") {
-      //     queryObj.price = { $gte: value };
-      //   } else {
-      //     queryObj.price = { $lte: value };
-      //   }
+      //sample solution
+      let filters = String(numbericFilters).replace(
+        regex,
+        (match) => `-${operatorMap[match]}-`
+      );
+      const options = ["price", "rating"];
+      let value = filters.split(",").forEach((item) => {
+        const [option, operator, value] = item.split("-");
+        if (options.includes(option)) {
+          queryObj[option] = { [operator]: Number(value) };
+        }
+      });
+      //my cc solution
+      //   let value: string[] = String(numbericFilters).split(",");
+      //   value.forEach((element, i) => {
+      //     let compare = String(value[i].match(regex));
+      //     let valueSlit: string[] = element.split(compare);
+      //     queryObj[valueSlit[0]] = { [operatorMap[compare]]: valueSlit[1] };
+      //   });
+      console.log(queryObj);
     }
     let allProducts = await this.ProductService.getAllProducts(
       queryObj,
