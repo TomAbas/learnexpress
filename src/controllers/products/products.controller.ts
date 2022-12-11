@@ -1,7 +1,6 @@
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
 import express from "express";
 import Controller from "../../interfaces/controller.interface";
-import { queryObj } from "../../interfaces/commom-interfaces";
 import ProductService from "./products.service";
 
 class productsController implements Controller {
@@ -14,19 +13,21 @@ class productsController implements Controller {
   }
 
   private initialiseRoutes() {
-    console.log("1234");
     this.router.route(`${this.path}`).get(this.getAllProducts);
   }
 
   private getAllProducts = async (req: Request, res: Response) => {
-    console.log("123");
-    const { featured, company } = req.query;
-    const queryObj: queryObj = {};
-    if (featured) {
+    const { featured, company, name } = req.query;
+    const queryObj: any = {};
+    console.log(typeof featured);
+    if (typeof featured === "string") {
       queryObj.featured = featured === "true" ? true : false;
     }
-    if (company) {
+    if (typeof company === "string") {
       queryObj.company = company;
+    }
+    if (typeof name === "string") {
+      queryObj.name = { $regex: name, $options: "i" };
     }
     console.log(queryObj);
     let allProducts = await this.ProductService.getAllProducts(queryObj);

@@ -6,7 +6,7 @@ class ProductService {
   private products = productsModel;
 
   //   get all post
-  public getAllProducts = async (queryObj: queryObj) => {
+  public getAllProducts = async (queryObj: any) => {
     const allProducts = await this.products.find(queryObj);
     return allProducts;
   };

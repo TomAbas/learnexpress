@@ -4,5 +4,5 @@ export interface queryObj {
   createAt?: Date;
   price?: number;
   name?: string;
-  company?:  "ikea" | "liddy" | "caressa" | "marcos" | any;
+  company?: string;
 }
