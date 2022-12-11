@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { customAPIError } from "../../error/customError";
 import Controller from "../../interfaces/controller.interface";
 import JwtService from "./jwt.service";
 
@@ -18,7 +19,9 @@ class JwtController implements Controller {
   }
 
   private thor = async (req: Request, res: Response) => {
-    res.send("phake auhtor");
+    const { username, password } = req.body;
+    let token = this.jwtService.isProvide(username, password);
+    res.status(200).json({ msg: "user create", token });
   };
 
   private dashboard = async (req: Request, res: Response) => {

@@ -30,6 +30,7 @@ class cat {
   sound: string;
   me1o: string | undefined;
   coneo: string;
+  private nametestih = "con meo cua toi";
   constructor(name1: string, sound: string, meo?: string) {
     this.name1 = name1;
     this.sound = sound;
@@ -67,9 +68,8 @@ class tiger extends cat {
   }
 }
 
-const concop = new tiger("test", "test1", "conmeo2", "meomeo2", "ưqeqw");
-concop.name1 = "test asigan";
-concop.makeVoice();
+const dan = new tiger("1", "2", "3", "4", "5", "6");
+console.log(dan);
 class Triple {
   // Using the 'static' keyword creates a method which is associated
   // with a class, but not with an instance of the class.
@@ -87,6 +87,6 @@ class BiggerTriple extends Triple {
   }
 }
 
-console.log(Triple.triple());
-console.log(Triple.triple(6));
-console.log(BiggerTriple.triple(3));
+// console.log(Triple.triple());
+// console.log(Triple.triple(6));
+// console.log(BiggerTriple.triple(3));
