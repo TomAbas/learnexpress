@@ -26,21 +26,25 @@ export class Product {
 }
 
 class cat {
-  name1: string;
+  name123: string = "hekk";
   sound: string;
   me1o: string | undefined;
   coneo: string;
   private nametestih = "con meo cua toi";
   constructor(name1: string, sound: string, meo?: string) {
-    this.name1 = name1;
+    this.name123 = name1;
     this.sound = sound;
     this.me1o = meo;
     this.coneo = "213";
   }
+  getName() {
+    return this.nametestih;
+  }
   makeSound() {
-    console.log(this.sound + " and " + this.name1 + " test " + this.me1o);
+    console.log(this.sound + " and " + " test " + this.me1o);
   }
 }
+let newCat: cat = new cat("fdhjf", "vjdn");
 const conmeo = new cat(" conmeo ", " meomeo ", " qwe ");
 // conmeo.makeSound();
 

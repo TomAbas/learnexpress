@@ -3,4 +3,7 @@ export type name = {
   id: number;
 };
 
-
+export type user = {
+  id: string | number;
+  username: string;
+};

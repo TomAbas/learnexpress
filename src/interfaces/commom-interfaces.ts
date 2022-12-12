@@ -6,3 +6,10 @@ export interface queryObj {
   name?: Object;
   company?: String;
 }
+
+export interface decoded {
+  id: string | number;
+  username: string;
+  expiresIn: string;
+  issuer: string;
+}
